@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
+import org.telegram.telegrambots.meta.api.methods.send.SendSticker;
 import org.telegram.telegrambots.meta.api.objects.Chat;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
@@ -88,8 +89,21 @@ public class HelloBot extends TelegramLongPollingBot {
                 .build();
         chatMessageRepository.save(sendChatMessage);
         log.info("Bot response: {}", sendMessage.toString());
-
         this.execute(sendMessage);
+
+        String stickerId = "CAACAgUAAxUAAV60ucXauhT9zn9uWdg07yQRide1AAJSAAOxXRkUHa8WUgl8Ry4ZBA";
+        SendSticker sendSticker = new SendSticker();
+        sendSticker.setChatId(chatId);
+        sendSticker.setSticker(stickerId);
+
+        ChatMessage stickerMessage = ChatMessage.builder()
+                .chatUserId(chatUserId)
+                .sendMsg(stickerId)
+                .sendAt(LocalDateTime.now())
+                .build();
+        chatMessageRepository.save(stickerMessage);
+        log.info("Bot send a sticker: {}", sendSticker.toString());
+        this.execute(sendSticker);
     }
 
     @Override

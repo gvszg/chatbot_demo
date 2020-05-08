@@ -38,5 +38,5 @@ public class ChatUser {
 
     @Column(name = "updated_at", nullable = false)
     @UpdateTimestamp
-    private LocalDate updatedAt;
+    private LocalDateTime updatedAt;
 }
