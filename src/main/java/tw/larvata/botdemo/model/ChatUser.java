@@ -9,7 +9,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "chat_user")
+@Table(name = "chat_user", uniqueConstraints = {@UniqueConstraint(columnNames = {"telegram_id"})})
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
